@@ -93,4 +93,33 @@ private:
             }
         }
     }
+
+    //function to perform gravity flip after 30 seconds have elapsed.
+    void performGravityFlip() {
+        cout << "\n*** " << (flips + 1) * 30 << " SECONDS.. GRAVITY LOSS! ***\n";
+        
+        //flip board to simulate loss in gravity
+        std::reverse(board.begin(), board.end()); //reverse rows
+        for (auto& row : board) {
+            std::reverse(row.begin(), row.end()); //reverse row content
+        }
+
+        //flip revealed state
+        std::reverse(revealed.begin(), revealed.end());
+        for (auto& row : revealed) {
+            std::reverse(row.begin(), row.end());
+        }
+
+        //flip hidden bomb coordinates
+        //formula for 180 degree rotation: New_Coord = (Max_Index - Old_Coord)
+        set<pair<int, int>> newBombLocs;
+        for (auto pos : bombLoc) {
+            int newR = (size - 1) - pos.first;
+            int newC = (size - 1) - pos.second;
+            newBombLocs.insert({newR, newC});
+        }
+        bombLoc = newBombLocs; //replace old bomb list with new, once rotation occurs
+
+        flips++;
+    }
 };
