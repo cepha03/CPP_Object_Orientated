@@ -227,3 +227,11 @@ public:
         }
     }
 };
+
+int main() {
+    //instantiate the object and start behavior
+    //9x9 grid with 10 bombs 
+    MinesweeperOO game(9, 10);
+    game.playGame(); //playGame function called to start game
+    return 0;
+}
