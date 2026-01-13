@@ -62,4 +62,35 @@ private:
         }
         return count; //return total 0 to 8
     }
+
+    //recursion flood fill for board fill when a safe neighbour is found
+    void floodFill(int r, int c) {
+        // Base checks
+        if (r < 0 || r >= size || c < 0 || c >= size) 
+            return;
+        if (revealed[r][c]) 
+            return; //already opened
+        if (board[r][c] == 'F') 
+            return; //don't reveal flags automatically
+
+        revealed[r][c] = true; //mark as opened
+
+        //check surrounding cells for mines
+        int mines = countAdjMines(r, c);
+
+        if (mines > 0) {
+            //number found, show it and stop
+            board[r][c] = mines + '0'; // Convert int to char
+        } 
+        else 
+        {
+            //continue recursion if empty. open all 8 neighbours
+            board[r][c] = ' '; // Empty space
+            for (int dr = -1; dr <= 1; ++dr) {
+                for (int dc = -1; dc <= 1; ++dc) {
+                    floodFill(r + dr, c + dc); //function called.
+                }
+            }
+        }
+    }
 };
