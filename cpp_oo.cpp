@@ -122,4 +122,20 @@ private:
 
         flips++;
     }
+
+    //function to display board and its components. 
+    //time and flips are displayed
+    void displayBoard(double elapsed) {
+        cout << "\n--- Time: " << (int)elapsed << "s | Flips: " << flips << " ---" << endl; 
+        cout << "  "; //print column headers
+        for(int i=0; i<size; ++i) cout << i << " ";
+        cout << endl;
+        for (int i = 0; i < size; ++i) {
+            cout << i << " "; //print row column headers
+            for (int j = 0; j < size; ++j) {
+                cout << board[i][j] << " "; //display cells
+            }
+            cout << endl;
+        }
+    }
 };
