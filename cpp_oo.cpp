@@ -43,4 +43,23 @@ private:
         flips = 0; //flips set to 0 (loss in gravity)
         cout << "Game has started! Bombs hidden: " << numBombs << endl;
     }
+
+    //count mines surrounding each cell when selected
+    int countAdjMines(int r, int c) {
+        int count = 0; //count set to 0
+        for (int dr = -1; dr <= 1; ++dr) { //loop from r-1 to r+1
+            for (int dc = -1; dc <= 1; ++dc) { //loop from c-1 to c+1
+                if (dr == 0 && dc == 0) continue;
+                int nr = r + dr;
+                int nc = c + dc;
+                //check bounds 
+                if (nr >= 0 && nr < size && nc >= 0 && nc < size) {
+                    if (bombLoc.count({nr, nc})) { //check if a bomb is at the neighbour location
+                        count++;
+                    }
+                }
+            }
+        }
+        return count; //return total 0 to 8
+    }
 };
